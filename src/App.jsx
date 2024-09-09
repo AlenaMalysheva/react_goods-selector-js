@@ -1,5 +1,6 @@
 import 'bulma/css/bulma.css';
 import './App.scss';
+import classNames from 'classnames';
 import { useState } from 'react';
 
 export const goods = [
@@ -29,7 +30,7 @@ export const App = () => {
 
   return (
     <main className="section container">
-      {selectedGood === '' ? (
+      {!selectedGood ? (
         <h1 className="title is-flex is-align-items-center">
           No goods selected
         </h1>
@@ -48,17 +49,18 @@ export const App = () => {
         <tbody>
           {goods.map(good => {
             const buttonClickHandler = () => handleSelectedGood(good);
+            const isSelected = good === selectedGood;
 
             return (
               <tr
                 data-cy="Good"
                 key={good}
-                className={
-                  good === selectedGood ? 'has-background-success-light' : ''
-                }
+                className={classNames({
+                  'has-background-success-light': isSelected,
+                })}
               >
                 <td>
-                  {good === selectedGood ? (
+                  {isSelected ? (
                     <button
                       data-cy="RemoveButton"
                       type="button"
